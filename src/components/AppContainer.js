@@ -12,7 +12,21 @@ class AppContainer extends React.Component {
 
     this.state = {
       //Auth
-      isAuth: localStorage.getItem('token') !== null
+      isAuth: localStorage.getItem('token') !== null,
+      setAuth: this.setAuth.bind(this),
+
+      //AppBar
+      appBarTitle: 'Games Market',
+      setAppBarTitle: this.setAppBarTitle.bind(this),
+
+      //Loading
+      isLoading: false,
+      setLoading: this.setLoading.bind(this),
+
+      //Alert
+      alertMessage: "",
+      alertVariant: "error",
+      setAlert: this.setAlert.bind(this)
     };
   }
 
@@ -32,12 +46,35 @@ class AppContainer extends React.Component {
     }
   }
 
+  /**
+   * Set app bar title
+   */
+  setAppBarTitle = payload => {
+    this.setState({appBarTitle: payload});
+  }
+
+  /**
+   * Set app is loading
+   */
+  setLoading = payload => {
+    this.setState({isLoading: payload});
+  }
+
+  /**
+   * Set alert to screen
+   */
+  setAlert = (message, variant='error') => {
+    this.setState({alertMessage: message, alertVariant: variant});
+  }
+
   render() {
+    const {isLoading, alertMessage, alertVariant} = this.state;
+
     return (
       <MuiThemeProvider theme={light}>
         <AppContext.Provider value={this.state}>
           <HashRouter>
-            <App/>
+            <App isLoading={isLoading} alertMessage={alertMessage} alertVariant={alertVariant}/>
           </HashRouter>
         </AppContext.Provider>
       </MuiThemeProvider>
