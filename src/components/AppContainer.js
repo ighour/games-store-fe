@@ -43,6 +43,9 @@ class AppContainer extends React.Component {
     else {
       localStorage.removeItem('token');
       axios.defaults.headers.common['Authorization'] = '';
+
+      //Clear store
+      this.setState({isAuth: false});
     }
   }
 

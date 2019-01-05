@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { withAuthStore } from '../helpers';
+import { withAppContext } from '../helpers';
 import AuthView from './Auth';
 
-const Routes = ({ store }) => {
+const Routes = ({ appContext }) => {
   return (
-    store.isAuth ? 
+    appContext.isAuth ? 
     null
     :
     <AuthView/>
@@ -14,9 +14,9 @@ const Routes = ({ store }) => {
 };
 
 Routes.propTypes = {
-  store: PropTypes.object.isRequired
+  appContext: PropTypes.object.isRequired
 };
 
-const ComponentWithAuthStore = withAuthStore(Routes);
+const ComponentWithAppContext = withAppContext(Routes);
 
-export default ComponentWithAuthStore;
+export default ComponentWithAppContext;

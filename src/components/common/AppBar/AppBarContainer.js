@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withAuthRequest, withAppContext, withAuthStore } from '../../helpers';
+import { withAuthRequest, withAppContext } from '../../helpers';
 import { withRouter } from "react-router";
 import { AppBar, AppDrawer } from './index';
 import { Toolbar } from '@material-ui/core';
@@ -25,7 +25,7 @@ class AppBarContainer extends React.Component {
   }
 
   getPrimaryMenu(){
-    if(this.props.store.isAuth === true){
+    if(this.props.appContext.isAuth === true){
       return [
         {text: 'Logout', icon: <ExitToAppIcon/>, action: this.props.withRequest.logout}
       ];
@@ -39,7 +39,7 @@ class AppBarContainer extends React.Component {
   }
 
   getSecondaryMenu(){
-    if(this.props.store.isAuth === true){
+    if(this.props.appContext.isAuth === true){
       return [];
     }
   }
@@ -75,16 +75,13 @@ class AppBarContainer extends React.Component {
 
 AppBarContainer.propTypes = {
   appContext: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired,
   withRequest: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
 const ComponentWithAppContext = withAppContext(AppBarContainer);
 
-const ComponentWithAuthStore = withAuthStore(ComponentWithAppContext);
-
-const ComponentWithAuthRequest = withAuthRequest(ComponentWithAuthStore);
+const ComponentWithAuthRequest = withAuthRequest(ComponentWithAppContext);
 
 const ComponentWithRouter = withRouter(ComponentWithAuthRequest);
 
