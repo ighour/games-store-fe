@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../assets/css/App.css';
-import { AppBar } from './common';
+import { AppBar, Loading } from './common';
 
-const App = () => {
+const App = props => {
+
+  const {isLoading} = props;
 
   return (
     <div className="App">
@@ -11,6 +13,7 @@ const App = () => {
       <main className="App-Content">
         <div id="app-routes"></div>
       </main>
+      <Loading isLoading={isLoading}></Loading>
     </div>
   );
 };
