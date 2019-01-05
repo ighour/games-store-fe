@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../assets/css/App.css';
+import { AppBar } from './common';
 
 const App = () => {
 
   return (
     <div className="App">
-      <div id="app-bar"></div>
+      <AppBar/>
       <main className="App-Content">
         <div id="app-routes"></div>
       </main>
