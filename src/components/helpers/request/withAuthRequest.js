@@ -40,9 +40,7 @@ export default (Component, requestName) => {
      */
     const register = params => {
       return withRequest.post('/users', params)
-      .then(response => {
-        store.setAuth(response.data.payload);
-        
+      .then(response => {        
         return response;
       })
       .catch(error => {
