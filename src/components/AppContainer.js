@@ -14,8 +14,10 @@ const getAuth = () => {
     if(localAuth !== null){
       let auth = JSON.parse(localAuth);
 
-      if(auth['id'] !== undefined && auth['username'] !== undefined && auth['role'] !== undefined && auth['token'] !== undefined)
+      if(auth['id'] !== undefined && auth['username'] !== undefined && auth['role'] !== undefined && auth['token'] !== undefined){
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth['token'];
         return auth;
+      }
     }
 
     return {};
@@ -30,6 +32,7 @@ class AppContainer extends React.Component {
       auth: getAuth(),
       isAuth: this.isAuth.bind(this),
       setAuth: this.setAuth.bind(this),
+      isRole: this.isRole.bind(this),
 
       //AppBar
       appBarTitle: 'Games Store',
@@ -87,6 +90,23 @@ class AppContainer extends React.Component {
       //Clear store
       this.setState({auth: {}});
     }
+  }
+
+  /**
+   * Check is role
+   */
+  isRole = role => {
+    const {auth} = this.state;
+
+    if(Array.isArray(role)){
+      if(role.includes(auth['role']))
+        return true;
+    }
+
+    else if(role === auth['role'])
+      return true;
+
+    return false;
   }
 
   /**

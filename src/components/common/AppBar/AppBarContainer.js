@@ -7,6 +7,7 @@ import { Toolbar } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import GroupIcon from '@material-ui/icons/Group';
 
 class AppBarContainer extends React.Component {
   constructor(props){
@@ -40,7 +41,17 @@ class AppBarContainer extends React.Component {
 
   getSecondaryMenu(){
     if(this.props.appContext.isAuth() === true){
-      return [];
+      if(this.props.appContext.isRole('admin')){
+        return [
+          {text: 'Users', icon: <GroupIcon/>, action: '/admin/users'},
+          {text: 'Profile', icon: <PersonIcon/>, action: '/Profile'},
+        ];
+      }
+      else{
+        return [
+          {text: 'Profile', icon: <PersonIcon/>, action: '/Profile'},
+        ];
+      }
     }
   }
 

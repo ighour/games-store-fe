@@ -10,6 +10,7 @@ const context = React.createContext({
   },
   isAuth: () => {},
   setAuth: () => {},
+  isRole: () => {},
 
   //AppBar
   appBarTitle: 'Games Store',
