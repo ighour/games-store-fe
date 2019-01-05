@@ -26,6 +26,15 @@ const params = {
     },
     transformed: value => {return value.length === 0 ? undefined : value},
     validation: ['required']
+  },
+  _remember: {
+    initialValue: true,
+    formParams: {
+      label: 'Remember Me',
+      type: 'checkbox'
+    },
+    transformed: value => {return value},
+    validation: []
   }
 };
 

@@ -2,7 +2,13 @@ import React from 'react';
 
 const context = React.createContext({
   //Auth
-  isAuth: false,
+  auth: {
+    id: '',
+    username: '',
+    role: '_default',
+    token: ''
+  },
+  isAuth: () => {},
   setAuth: () => {},
 
   //AppBar

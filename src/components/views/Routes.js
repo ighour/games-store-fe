@@ -6,7 +6,7 @@ import AuthView from './Auth';
 
 const Routes = ({ appContext }) => {
   return (
-    appContext.isAuth ? 
+    appContext.isAuth() ? 
     null
     :
     <AuthView/>

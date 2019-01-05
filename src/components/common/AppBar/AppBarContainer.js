@@ -25,7 +25,7 @@ class AppBarContainer extends React.Component {
   }
 
   getPrimaryMenu(){
-    if(this.props.appContext.isAuth === true){
+    if(this.props.appContext.isAuth() === true){
       return [
         {text: 'Logout', icon: <ExitToAppIcon/>, action: this.props.withRequest.logout}
       ];
@@ -39,7 +39,7 @@ class AppBarContainer extends React.Component {
   }
 
   getSecondaryMenu(){
-    if(this.props.appContext.isAuth === true){
+    if(this.props.appContext.isAuth() === true){
       return [];
     }
   }

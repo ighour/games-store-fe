@@ -12,9 +12,11 @@ export default (Component, requestName) => {
      * Login
      */
     const login = params => {
-      return withRequest.post('/login', params)
+      const {_remember, ...loginParams} = params;
+
+      return withRequest.post('/login', loginParams)
       .then(response => {
-        store.setAuth(response.data.payload);
+        store.setAuth(response.data.payload, _remember);
 
         return response;
       })

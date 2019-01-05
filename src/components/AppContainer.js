@@ -5,6 +5,21 @@ import { AppContext } from '../contexts';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
 import { axios } from '../services';
+import jwtDecode from 'jwt-decode';
+
+//Parse local storage for auth
+const getAuth = () => {
+    let localAuth = localStorage.getItem('auth');
+
+    if(localAuth !== null){
+      let auth = JSON.parse(localAuth);
+
+      if(auth['id'] !== undefined && auth['username'] !== undefined && auth['role'] !== undefined && auth['token'] !== undefined)
+        return auth;
+    }
+
+    return {};
+};
 
 class AppContainer extends React.Component {
   constructor(props){
@@ -12,7 +27,8 @@ class AppContainer extends React.Component {
 
     this.state = {
       //Auth
-      isAuth: localStorage.getItem('token') !== null,
+      auth: getAuth(),
+      isAuth: this.isAuth.bind(this),
       setAuth: this.setAuth.bind(this),
 
       //AppBar
@@ -31,21 +47,45 @@ class AppContainer extends React.Component {
   }
 
   /**
-   * Set authenticated user token and auth state or remove them, clearing the store
+   * Check is auth
    */
-  setAuth = (value, token) => {
+  isAuth = () => {
+    const {auth} = this.state;
+
+    if(auth['id'] !== undefined && auth['username'] !== undefined && auth['role'] !== undefined && auth['token'] !== undefined)
+        return true;
+    
+    return false;
+  }
+
+  /**
+   * Set authenticated user
+   */
+  setAuth = (value, token, _remember=true) => {
     if(value === true){
-      localStorage.setItem('token', token);
+      let decodedToken = jwtDecode(token);
+
+      let auth = {
+        id: decodedToken['pay']['id'],
+        username: decodedToken['pay']['username'],
+        role: decodedToken['pay']['role'],
+        token
+      };
+
+      //If remember save in local storage
+      if(_remember === true)
+        localStorage.setItem('auth', JSON.stringify(auth));
+
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
-      this.setState({isAuth: true});
+      this.setState({auth});
     }
     else {
-      localStorage.removeItem('token');
+      localStorage.removeItem('auth');
       axios.defaults.headers.common['Authorization'] = '';
 
       //Clear store
-      this.setState({isAuth: false});
+      this.setState({auth: {}});
     }
   }
 

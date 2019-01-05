@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Fab, FormGroup } from '@material-ui/core';
-import {FormInput} from './index';
+import {FormInput, FormSwitch} from './index';
 
 const styles = theme => ({
   root: {
@@ -25,6 +25,16 @@ const Form = props => {
     <div className={classes.root}>
       <form onSubmit={onSubmit}>
         {Object.keys(formParams).map(paramName => 
+          formParams[paramName].type === 'checkbox' ?
+          <FormSwitch key={paramName}
+            error={errors[paramName] !== undefined && errors[paramName].length > 0}
+            helperText={errors[paramName] !== undefined && errors[paramName].length > 0 ? errors[paramName][0] : undefined}
+            setParam={setParam}
+            name={paramName}
+            label={formParams[paramName].label}
+            value={formState[paramName]}
+          />
+          :
           <FormInput key={paramName}
             error={errors[paramName] !== undefined && errors[paramName].length > 0}
             helperText={errors[paramName] !== undefined && errors[paramName].length > 0 ? errors[paramName][0] : undefined}

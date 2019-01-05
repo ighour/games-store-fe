@@ -8,8 +8,8 @@ export default (Component, storeName) => {
     const {appContext} = props;
 
     /* SET AUTH */
-    const setAuth = payload => {
-      appContext.setAuth(true, payload.token);
+    const setAuth = (payload, remember) => {
+      appContext.setAuth(true, payload.token, remember);
     };
 
     /* REMOVE AUTH */
