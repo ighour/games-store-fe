@@ -37,7 +37,7 @@ class AppContainer extends React.Component {
     if(value === true){
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-  
+
       this.setState({isAuth: true});
     }
     else {

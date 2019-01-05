@@ -29,21 +29,18 @@ export default Component => {
               console.log(error.response);
             }
 
-            
-            if(error.response && error.response.data){
-              //Handle Invalid Token
-              if(error.response.data.message === 'INVALID_TOKEN'){
-                //Remove auth
-                localStorage.removeItem('token');
-                axios.defaults.headers.common['Authorization'] = '';
-                this.props.appContext.setAuth(false);
-              }
+            //Handle Invalid Token
+            if(error.response && error.response.data && error.response.data.message === 'INVALID_TOKEN'){
+              //Remove auth
+              localStorage.removeItem('token');
+              axios.defaults.headers.common['Authorization'] = '';
+              this.props.appContext.setAuth(false);
+            }
 
-              //Handle Invalid Token Access
-              else if(error.response.data.message === 'INVALID_TOKEN_ACCESS'){
-                //REDIRECT TO /
-                //TODO
-              }
+            //Handle Invalid Token Access
+            else if(error.response && error.response.data && error.response.data.message === 'INVALID_TOKEN_ACCESS'){
+              //REDIRECT TO /
+              //TODO
             }
 
             //Pass Other Errors Forward
