@@ -16,7 +16,7 @@ class AppContainer extends React.Component {
       setAuth: this.setAuth.bind(this),
 
       //AppBar
-      appBarTitle: 'Games Market',
+      appBarTitle: 'Games Store',
       setAppBarTitle: this.setAppBarTitle.bind(this),
 
       //Loading
