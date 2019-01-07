@@ -28,21 +28,14 @@ const Form = props => {
       <FormBase
         params={params}
         onSubmit={onSubmit}
-        submitText='Sign In'
+        submitText='Reset Password'
       >
-        <Link to='/register'>
+        <Link to='/login'>
           <Typography
             className={classes.link}
             color='secondary'
             variant='body2'
-          > No account? Create here! </Typography>
-        </Link>
-        <Link to='/forget'>
-          <Typography
-            className={classes.link}
-            color='secondary'
-            variant='body2'
-          > Forgot Password? Recover here! </Typography>
+          > Have an account? Login here! </Typography>
         </Link>
       </FormBase>
     </div>

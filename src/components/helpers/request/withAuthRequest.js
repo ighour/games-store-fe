@@ -50,7 +50,40 @@ export default (Component, requestName) => {
       });
     }
 
-    const requestMethods = {login, logout, register};
+    /**
+     * Forget Password
+     */
+    const forget = params => {
+      //Callback URL (USING HASHES)
+      const callbackURL = window.location.origin + "/#/recover";
+
+      return withRequest.post('/forget', {...params, callback: callbackURL})
+      .then(response => {
+        store.setAlert("Check you email.", 'primary');
+
+        return response;
+      })
+      .catch(error => {
+        throw(error);
+      });
+    };
+
+    /**
+     * Recover Password
+     */
+    const recover = (params, token) => {
+      return withRequest.post('/recover', {...params, token})
+      .then(response => {
+        store.setAlert("Password reset.", 'primary');
+
+        return response;
+      })
+      .catch(error => {
+        throw(error);
+      });
+    };
+
+    const requestMethods = {login, logout, register, forget, recover};
 
     return (
       <Component {...props} {...{[requestName === undefined ? 'withRequest' : requestName]:requestMethods}}/>
@@ -61,7 +94,8 @@ export default (Component, requestName) => {
 
   WithAuthRequest.propTypes = {
     withRequest: PropTypes.object.isRequired,
-    store: PropTypes.object
+    store: PropTypes.object,
+    location: PropTypes.object.isRequired
   };
 
   const ComponentWithRequest = withRequest(WithAuthRequest);

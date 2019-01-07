@@ -17,7 +17,11 @@ export default (Component, storeName) => {
       appContext.setAuth(false);
     };
 
-    const storeInterface = {setAuth, removeAuth};
+    const setAlert = (message, variant) => {
+      appContext.setAlert(message, variant);
+    };
+
+    const storeInterface = {setAuth, removeAuth, setAlert};
 
     return (
       <Component {...props} {...{[storeName === undefined ? 'store' : storeName]: storeInterface}}/>

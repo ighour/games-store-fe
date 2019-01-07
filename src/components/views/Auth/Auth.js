@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Login, Register} from '../../Auth';
+import {Login, Register, Forget, Recover} from '../../Auth';
 import { withAppContext } from '../../helpers';
 
 class AuthView extends React.Component {
@@ -25,6 +25,8 @@ class AuthView extends React.Component {
       <Switch>
         <Route exact path='/login' component={Login}/>
         <Route exact path='/register' component={Register}/>
+        <Route exact path='/forget' component={Forget}/>
+        <Route exact path='/recover' component={Recover}/>
         
         <Redirect push to='/login'/>
       </Switch>

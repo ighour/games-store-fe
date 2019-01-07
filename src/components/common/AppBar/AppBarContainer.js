@@ -8,6 +8,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import GroupIcon from '@material-ui/icons/Group';
+import LockIcon from '@material-ui/icons/Lock';
 
 class AppBarContainer extends React.Component {
   constructor(props){
@@ -34,7 +35,8 @@ class AppBarContainer extends React.Component {
     else{
       return [
         {text: 'Login', icon: <PersonIcon/>, action: '/login'},
-        {text: 'Register', icon: <PersonAddIcon/>, action: '/register'}
+        {text: 'Register', icon: <PersonAddIcon/>, action: '/register'},
+        {text: 'Forget Password', icon: <LockIcon/>, action: '/forget'}
       ];
     }
   }
