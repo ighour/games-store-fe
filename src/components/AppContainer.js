@@ -45,7 +45,21 @@ class AppContainer extends React.Component {
       //Alert
       alertMessage: "",
       alertVariant: "error",
-      setAlert: this.setAlert.bind(this)
+      setAlert: this.setAlert.bind(this),
+
+      //Users
+      usersLoaded: false,
+      users: {},
+
+      //Generic Manipulation of State
+      setAll: this.setAll.bind(this),
+      storeElement: this.storeElement.bind(this),
+      updateElement: this.updateElement.bind(this),
+      destroyElement: this.destroyElement.bind(this),
+      destroyElements: this.destroyElements.bind(this),
+      syncElements: this.syncElements.bind(this),
+      clearElements: this.clearElements.bind(this),
+      checkIsLoaded: this.checkIsLoaded.bind(this)
     };
   }
 
@@ -128,6 +142,85 @@ class AppContainer extends React.Component {
    */
   setAlert = (message, variant='error') => {
     this.setState({alertMessage: message, alertVariant: variant});
+  }
+
+  /* Set all elements of a source in store (for fetching index data) */
+  setAll = (stateName, elements) => {
+    if(typeof stateName !== 'string' || !this.state.hasOwnProperty(stateName) || typeof elements !== 'object')
+      throw new Error("STORE_SET_ALL_ERROR");
+
+    this.setState({[stateName]: elements, [`${stateName}Loaded`]: true});
+  }
+
+  /* Store an element in store */
+  storeElement = (stateName, element) => {
+    if(typeof stateName !== 'string' || !this.state.hasOwnProperty(stateName) || typeof element !== 'object' || element.id === undefined)
+      throw new Error("STORE_STORE_ELEMENT_ERROR");
+
+    this.setState({[stateName]: {...this.state[stateName], [element.id]: element}});
+  }
+
+  /* Update an element in store */
+  updateElement = (stateName, element) => {
+    if(typeof stateName !== 'string' || !this.state.hasOwnProperty(stateName) || typeof element !== 'object' || element.id === undefined)
+      throw new Error("STORE_UPDATE_ELEMENT_ERROR");
+
+    this.setState({[stateName]: {...this.state[stateName], [element.id]: element}});
+  }
+
+  /* Remove an element from store */
+  destroyElement = (stateName, element) => {
+    if(typeof stateName !== 'string' || !this.state.hasOwnProperty(stateName) || typeof element !== 'object' || element.id === undefined)
+      throw new Error("STORE_DESTROY_ELEMENT_ERROR");
+
+    let elements = {...this.state[stateName]};
+
+    if(elements !== undefined){
+      delete elements[element.id];
+
+      this.setState({[stateName]: elements});
+    }
+  }
+
+  /* Remove a list of elements from store */
+  destroyElements = (stateName, elements) => {
+    if(typeof stateName !== 'string' || !this.state.hasOwnProperty(stateName) || !Array.isArray(elements))
+      throw new Error("STORE_DESTROY_ELEMENTS_ERROR");
+
+    let oldElements = {...this.state[stateName]};
+
+    if(oldElements !== undefined){
+      for(let i = 0; i < elements.length; i++){
+        let elementId = elements[i].id;
+        delete oldElements[elementId];
+      }
+
+      this.setState({[stateName]: oldElements});
+    }
+  }
+
+  /* Sync 1...n elements on store */
+  syncElements = (stateName, elements) => {
+    if(typeof stateName !== 'string' || !this.state.hasOwnProperty(stateName) || typeof elements !== 'object')
+      throw new Error("STORE_SYNC_ELEMENTS_ERROR");
+
+    this.setState({[stateName]: {...this.state[stateName], ...elements}});
+  }
+
+  /* Clear elements from store */
+  clearElements = (stateName) => {
+    if(typeof stateName !== 'string' || !this.state.hasOwnProperty(stateName))
+      throw new Error("STORE_CLEAR_ELEMENTS_ERROR");
+
+    this.setState({[stateName]: {}, [`${stateName}Loaded`]: false});
+  }
+
+  /* Check if store was loaded (fetched with setAll) */
+  checkIsLoaded = (stateName) => {
+    if(typeof stateName !== 'string' || !this.state.hasOwnProperty(stateName))
+      throw new Error("STORE_CHECK_IS_LOADED_ERROR");
+
+    return this.state[`${stateName}Loaded`] === true;
   }
 
   render() {

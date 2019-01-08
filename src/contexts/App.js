@@ -24,6 +24,20 @@ const context = React.createContext({
   alertMessage: "",
   alertVariant: "error",
   setAlert: () => {},
+
+  //Users
+  usersLoaded: false,
+  users: {},
+
+  //Generic CRUD
+  setAll: () => {},
+  storeElement: () => {},
+  updateElement: () => {},
+  destroyElement: () => {},
+  destroyElements: () => {},
+  syncElements: () => {},
+  clearElements: () => {},
+  checkIsLoaded: () => {}
 });
 
 context.displayName = 'AppContext';
