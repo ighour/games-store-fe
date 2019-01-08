@@ -1,13 +1,13 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { deepPurple, indigo, red } from '@material-ui/core/colors';
+import { deepOrange, amber, red } from '@material-ui/core/colors';
 
 export default createMuiTheme({
     palette: {
         primary: {
-            main: indigo.A700
+            main: deepOrange.A700
         },
         secondary: {
-            main: deepPurple.A700
+            main: amber[800]
         },
         error: {
             main: red.A700
