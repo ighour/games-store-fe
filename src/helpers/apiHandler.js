@@ -21,7 +21,7 @@ export const post = (relativePath, payload) => {
 //HTTP Put
 export const put = (relativePath, payload) => {
   return new Promise((resolve, reject) => {
-    axios.put(relativePath, payload)
+    axios.post(relativePath, {...payload, _method: 'PUT'})
       .then(response => { resolve(response) })
       .catch(error => { reject(error) });
   });
@@ -30,7 +30,7 @@ export const put = (relativePath, payload) => {
 //HTTP Delete
 export const del = (relativePath) => {
   return new Promise((resolve, reject) => {
-    axios.delete(relativePath)
+    axios.post(relativePath, {_method: 'DELETE'})
       .then(response => { resolve(response) })
       .catch(error => { reject(error) });
   });
