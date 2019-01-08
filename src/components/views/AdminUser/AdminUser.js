@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Index as UserIndex } from '../../Admin/User';
 import { withAppContext } from '../../helpers';
 
-class AdminView extends React.Component {
+class AdminUserView extends React.Component {
   componentDidMount(){
     this.updateAppBar();
   }
@@ -15,8 +15,8 @@ class AdminView extends React.Component {
   }
 
   updateAppBar(){
-    if(this.props.appContext.appBarTitle !== 'Admin'){
-      this.props.appContext.setAppBarTitle("Admin");
+    if(this.props.appContext.appBarTitle !== 'Admin: Users'){
+      this.props.appContext.setAppBarTitle("Admin: Users");
     }
   }
 
@@ -31,10 +31,10 @@ class AdminView extends React.Component {
   }
 }
 
-AdminView.propTypes = {
+AdminUserView.propTypes = {
   appContext: PropTypes.object.isRequired
 };
 
-const ComponentWithAppContext = withAppContext(AdminView);
+const ComponentWithAppContext = withAppContext(AdminUserView);
 
 export default ComponentWithAppContext;

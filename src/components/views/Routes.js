@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { withAppContext } from '../helpers';
 import AuthView from './Auth';
-import AdminView from './Admin';
+import AdminUserView from './AdminUser';
 import UserView from './User';
 
 const Routes = ({ appContext }) => {
@@ -12,13 +12,13 @@ const Routes = ({ appContext }) => {
     <Switch>
       {
         appContext.isRole('admin') &&
-        <Route path='/admin' component={AdminView}/>
+        <Route path='/admin/users' component={AdminUserView}/>
       }
 
       <Route path='/profile' component={UserView}/>
 
       {appContext.isRole('admin') ?
-        <Redirect push to='/admin'/>
+        <Redirect push to='/admin/users'/>
         :
         <Redirect push to='/profile'/>
       } 
