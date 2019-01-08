@@ -26,6 +26,12 @@ class UserContainer extends React.Component {
     const expandedTexts = [];
     expandedTexts.push({label: 'Role:', value: role});
 
+    const image = {
+      name: 'avatar',
+      src: user.avatar !== null ? user.avatar : process.env.REACT_APP_API_URL + 'img/avatar.png',
+      sizes: '100px 100px'
+    };
+
     return (
       <ListRow
         primaryText={username}
@@ -33,6 +39,7 @@ class UserContainer extends React.Component {
         expandButtonAction={this.changeExpanded.bind(this)}
         ExpandButtonIcon={<ExpandMoreIcon/>}
         expandedTexts={expandedTexts}
+        image={image}
       />
     );
   }
