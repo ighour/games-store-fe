@@ -14,15 +14,15 @@ const styles = theme => ({
   },
   panelSummaryContentWrapper: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    overflow: 'hidden'
   },
   panelSummaryContentWrapperTop: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
     marginRight: '-15px',
-    marginBottom: '5px'
+    marginBottom: '10px'
   },
   panelSummaryContent: {
     display: 'flex',
@@ -44,6 +44,13 @@ const styles = theme => ({
   image: {
     padding: theme.spacing.unit,
     marginRight: theme.spacing.unit
+  },
+  imageTop: {
+    marginRight: theme.spacing.unit,
+    width: '100%',
+    height: 'auto',
+    borderRadius: '2%',
+    padding: 0
   }
 });
 
@@ -53,9 +60,9 @@ const ListRow = props => {
   return (
     <ExpansionPanel expanded={expanded} onChange={expandButtonAction} className={classes.panel}>
       <ExpansionPanelSummary expandIcon={ExpandButtonIcon}>
-        <div className={image.position == 'top' ? classes.panelSummaryContentWrapperTop : classes.panelSummaryContentWrapper}>
+        <div className={image.position === 'top' ? classes.panelSummaryContentWrapperTop : classes.panelSummaryContentWrapper}>
           {image &&
-            <Avatar alt={image.name} src={image.src} sizes={image.sizes} onError={e => {e.target.src = image.fallback}} className={classes.image}/>
+            <Avatar alt={image.name} src={image.src} className={image.position === 'top' ? classes.imageTop : classes.image} onError={e => {if(e.target.src !== image.fallback) e.target.src = image.fallback}}/>
           }
           <div className={classes.panelSummaryContent}>
             <Typography variant="overline" className={classes.panelSummaryContentTitle}>
@@ -82,6 +89,7 @@ const ListRow = props => {
               <Typography color='textSecondary' className={classes.panelDetailsContentText}>
                 {text.value}
               </Typography>
+              <br/>
             </React.Fragment>  
           )}
         </div>

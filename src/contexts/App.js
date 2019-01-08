@@ -29,6 +29,14 @@ const context = React.createContext({
   usersLoaded: false,
   users: {},
 
+  //Item Categories
+  itemCategoriesLoaded: false,
+  itemCategories: {},
+
+  //Items
+  itemsLoaded: false,
+  items: {},
+
   //Generic CRUD
   setAll: () => {},
   storeElement: () => {},

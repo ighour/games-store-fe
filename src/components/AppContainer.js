@@ -51,6 +51,14 @@ class AppContainer extends React.Component {
       usersLoaded: false,
       users: {},
 
+      //Item Categories
+      itemCategoriesLoaded: false,
+      itemCategories: {},
+
+      //Items
+      itemsLoaded: false,
+      items: {},
+
       //Generic Manipulation of State
       setAll: this.setAll.bind(this),
       storeElement: this.storeElement.bind(this),

@@ -5,6 +5,7 @@ import { withAppContext } from '../helpers';
 import AuthView from './Auth';
 import AdminUserView from './AdminUser';
 import UserView from './User';
+import ItemView from './Item';
 
 const Routes = ({ appContext }) => {
   return (
@@ -17,6 +18,8 @@ const Routes = ({ appContext }) => {
 
       <Route path='/profile' component={UserView}/>
 
+      <Route path='/games' component={ItemView}/>
+
       {appContext.isRole('admin') ?
         <Redirect push to='/admin/users'/>
         :
@@ -24,7 +27,17 @@ const Routes = ({ appContext }) => {
       } 
     </Switch>
     :
-    <AuthView/>
+    <Switch>
+      <Route path='/games' component={ItemView}/>
+
+      <Route path='/login' component={AuthView}/>
+      <Route path='/register' component={AuthView}/>
+      <Route path='/forget' component={AuthView}/>
+      <Route path='/recover' component={AuthView}/>
+
+      <Redirect push to='/games'/>
+    </Switch>
+    
   );
 };
 

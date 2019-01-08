@@ -46,14 +46,21 @@ class AppBarContainer extends React.Component {
       if(this.props.appContext.isRole('admin')){
         return [
           {text: 'Users', icon: <GroupIcon/>, action: '/admin/users'},
-          {text: 'Profile', icon: <PersonIcon/>, action: '/Profile'},
+          {text: 'Profile', icon: <PersonIcon/>, action: '/profile'},
+          {text: 'Games List', icon: <PersonIcon/>, action: '/games'},
         ];
       }
       else{
         return [
-          {text: 'Profile', icon: <PersonIcon/>, action: '/Profile'},
+          {text: 'Profile', icon: <PersonIcon/>, action: '/profile'},
+          {text: 'Games List', icon: <PersonIcon/>, action: '/games'},
         ];
       }
+    }
+    else{
+      return [
+        {text: 'Games List', icon: <PersonIcon/>, action: '/games'},
+      ];
     }
   }
 
