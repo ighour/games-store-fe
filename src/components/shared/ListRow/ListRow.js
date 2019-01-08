@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { ExpansionPanel, ExpansionPanelActions, ExpansionPanelSummary, ExpansionPanelDetails, IconButton, Typography } from '@material-ui/core';
+import { ExpansionPanel, ExpansionPanelActions, ExpansionPanelSummary, ExpansionPanelDetails, IconButton, Typography, Avatar } from '@material-ui/core';
 
 const styles = theme => ({
   panel: {
@@ -28,15 +28,22 @@ const styles = theme => ({
   },
   panelDetailsContentText: {
     display: 'inline-block'
+  },
+  image: {
+    padding: theme.spacing.unit,
+    marginRight: theme.spacing.unit
   }
 });
 
 const ListRow = props => {
-  const {classes, expanded, primaryText, secondaryText, ExpandButtonIcon, expandButtonAction, expandedTexts, expandedActions} = props;
+  const {classes, expanded, primaryText, secondaryText, ExpandButtonIcon, expandButtonAction, expandedTexts, expandedActions, image} = props;
 
   return (
     <ExpansionPanel expanded={expanded} onChange={expandButtonAction} className={classes.panel}>
       <ExpansionPanelSummary expandIcon={ExpandButtonIcon}>
+        {image &&
+          <Avatar alt={image.name} src={image.src} sizes={image.sizes} className={classes.image}/>
+        }
         <div className={classes.panelSummaryContent}>
           <Typography variant="overline" className={classes.panelSummaryContentTitle}>
             {primaryText}
@@ -87,7 +94,8 @@ ListRow.propTypes = {
   expandButtonAction: PropTypes.func.isRequired,
   ExpandButtonIcon: PropTypes.node.isRequired,
   expandedTexts: PropTypes.array,
-  expandedActions: PropTypes.array
+  expandedActions: PropTypes.array,
+  image: PropTypes.object
 };
 
 const ComponentWithStyles = withStyles(styles)(ListRow);
