@@ -12,6 +12,18 @@ const styles = theme => ({
     marginRight: '0.5vw',
     marginLeft: '0.5vw'
   },
+  panelSummaryContentWrapper: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  panelSummaryContentWrapperTop: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginRight: '-15px',
+    marginBottom: '5px'
+  },
   panelSummaryContent: {
     display: 'flex',
     flexDirection: 'column',
@@ -41,19 +53,21 @@ const ListRow = props => {
   return (
     <ExpansionPanel expanded={expanded} onChange={expandButtonAction} className={classes.panel}>
       <ExpansionPanelSummary expandIcon={ExpandButtonIcon}>
-        {image &&
-          <Avatar alt={image.name} src={image.src} sizes={image.sizes} className={classes.image}/>
-        }
-        <div className={classes.panelSummaryContent}>
-          <Typography variant="overline" className={classes.panelSummaryContentTitle}>
-            {primaryText}
-          </Typography>
-          
-          {secondaryText &&
-          <Typography variant="overline" color="textSecondary">
-            {secondaryText}
-          </Typography>
+        <div className={image.position == 'top' ? classes.panelSummaryContentWrapperTop : classes.panelSummaryContentWrapper}>
+          {image &&
+            <Avatar alt={image.name} src={image.src} sizes={image.sizes} onError={e => {e.target.src = image.fallback}} className={classes.image}/>
           }
+          <div className={classes.panelSummaryContent}>
+            <Typography variant="overline" className={classes.panelSummaryContentTitle}>
+              {primaryText}
+            </Typography>
+            
+            {secondaryText &&
+            <Typography variant="overline" color="textSecondary">
+              {secondaryText}
+            </Typography>
+            }
+          </div>
         </div>
       </ExpansionPanelSummary>
 
