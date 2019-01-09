@@ -10,7 +10,7 @@ const styles = theme => ({
 });
 
 const Form = props => {
-  const {classes, error, helperText, setParam, name, label, value, placeholder, autoFocus, required, type, inputProps, select} = props;
+  const {classes, error, helperText, setParam, name, label, value, placeholder, autoFocus, required, type, inputProps, select, disabled} = props;
 
   return (
     <FormGroup>
@@ -28,6 +28,7 @@ const Form = props => {
         type={type}
         inputProps={inputProps}
         select={select !== undefined}
+        disabled={disabled}
       >
         {select &&
         select.map(option =>
@@ -54,7 +55,8 @@ Form.propTypes = {
   required: PropTypes.bool,
   type: PropTypes.string,
   inputProps: PropTypes.object,
-  select: PropTypes.array  
+  select: PropTypes.array,
+  disabled: PropTypes.bool
 };
 
 const ComponentWithStyles = withStyles(styles)(Form);
