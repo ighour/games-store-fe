@@ -26,13 +26,13 @@ class UserContainer extends React.Component {
     const expandedTexts = [];
     expandedTexts.push({label: 'Role:', value: role});
 
-    const defaultAvatarURL = process.env.REACT_APP_API_URL + 'img/avatar.png';
+    const defaultImgPath = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_DEFAULT_AVATAR_PATH;
 
     const image = {
       name: 'avatar',
-      src: user.avatar !== null ? user.avatar : defaultAvatarURL,
+      src: user.avatar !== null ? process.env.REACT_APP_API_URL + user.avatar : defaultImgPath,
       sizes: '100px 100px',
-      fallback: defaultAvatarURL,
+      fallback: defaultImgPath,
       position: 'default'
     };
 

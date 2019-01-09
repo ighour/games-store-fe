@@ -34,12 +34,12 @@ class ItemContainer extends React.Component {
     if(description)
       expandedTexts.push({label: 'Description:', value: description});
 
-    const defaultImageURL = process.env.REACT_APP_API_URL + 'img/game.png';
+    const defaultImgPath = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_DEFAULT_GAME_PATH;
 
     const image = {
       name: 'game',
-      src: item.image !== null ? item.image : defaultImageURL,
-      fallback: defaultImageURL,
+      src: item.image !== null ? process.env.REACT_APP_API_URL + item.image : defaultImgPath,
+      fallback: defaultImgPath,
       position: 'top'
     };
 
