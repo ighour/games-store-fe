@@ -1,3 +1,3 @@
 export {default as withContext, withAppContext} from './context';
-export {withRequest, withAuthRequest, withUserRequest, withItemRequest} from './request';
+export {withRequest, withAuthRequest, withUserRequest, withItemRequest, withItemCategoryRequest} from './request';
 export {withAuthStore, withUserStore, withItemStore, withItemCategoryStore} from './store';

@@ -9,6 +9,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import GroupIcon from '@material-ui/icons/Group';
 import LockIcon from '@material-ui/icons/Lock';
+import VideogameAssetIcon from '@material-ui/icons/VideogameAsset';
+import AddIcon from '@material-ui/icons/Add';
 
 class AppBarContainer extends React.Component {
   constructor(props){
@@ -47,19 +49,22 @@ class AppBarContainer extends React.Component {
         return [
           {text: 'Users', icon: <GroupIcon/>, action: '/admin/users'},
           {text: 'Profile', icon: <PersonIcon/>, action: '/profile'},
-          {text: 'Games List', icon: <PersonIcon/>, action: '/games'},
+          {text: 'Games List', icon: <VideogameAssetIcon/>, action: '/games'},
+          {text: 'Add Game', icon: <AddIcon/>, action: '/games/create'},
         ];
       }
       else{
         return [
           {text: 'Profile', icon: <PersonIcon/>, action: '/profile'},
-          {text: 'Games List', icon: <PersonIcon/>, action: '/games'},
+          {text: 'Games List', icon: <VideogameAssetIcon/>, action: '/games'},
+          {text: 'Add Game', icon: <AddIcon/>, action: '/games/create'},
         ];
       }
     }
     else{
       return [
-        {text: 'Games List', icon: <PersonIcon/>, action: '/games'},
+        {text: 'Games List', icon: <VideogameAssetIcon/>, action: '/games'},
+        {text: 'Add Game', icon: <AddIcon/>, action: '/games/create'},
       ];
     }
   }

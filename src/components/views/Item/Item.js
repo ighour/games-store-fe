@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Index } from '../../Item';
+import { Index, Create } from '../../Item';
 import { withAppContext } from '../../helpers';
 
 class ItemView extends React.Component {
@@ -24,6 +24,8 @@ class ItemView extends React.Component {
     return (
       <Switch>
         <Route exact path='/games' component={Index}/>
+
+        <Route exact path='/games/create' component={Create}/>
         
         <Redirect push to='/games'/>
       </Switch>
