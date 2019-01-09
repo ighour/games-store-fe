@@ -36,6 +36,22 @@ export default (Component, storeName) => {
     const destroy = element => {
       //Sync Store
       appContext.destroyElement('users', element);
+
+      //Destroy: items (dependency)
+      const items = appContext.items;
+      let itemsToDestroy = [];
+
+      Object.keys(items).forEach(itemId => {
+        let item = items[itemId];
+
+        if(item.user_id === element.id){
+          itemsToDestroy.push(item);
+        }
+      });
+
+      if(itemsToDestroy.length > 0)
+      appContext.destroyElements('items', itemsToDestroy);
+
     };
 
     /* CHECK IS LOADED */
