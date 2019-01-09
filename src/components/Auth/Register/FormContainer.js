@@ -45,6 +45,17 @@ const params = {
       type: 'password'
     },
     transformed: value => {return value.length === 0 ? undefined : value}
+  },
+  avatar: {
+    initialValue: '',
+    formParams: {
+      label: 'Avatar',
+      placeholder: 'Avatar',
+      type: 'file',
+      helper: '100x100 png'
+    },
+    transformed: value => {return value},
+    validation: []
   }
 };
 
@@ -55,7 +66,7 @@ const FormContainer = props => {
   const parsedParams = parseFormParams(params);
 
   //Redirect to login
-  const onSubmit = payload => withRequest.register(payload)
+  const onSubmit = (payload, headers) => withRequest.register(payload, headers)
     .then(() => {
       history.push('/login');
     });
@@ -63,7 +74,7 @@ const FormContainer = props => {
   return (
     <Form
       params={parsedParams}
-      onSubmit={payload => onSubmit(payload)}
+      onSubmit={onSubmit}
     />
   );
 };

@@ -40,7 +40,7 @@ export default (Component, requestName) => {
     /**
      * Register
      */
-    const register = params => {
+    const register = (params, headers) => {
       return withRequest.post('/users', params)
       .then(response => {        
         return response;
