@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Fab, FormGroup } from '@material-ui/core';
+import { Fab, FormGroup, Button } from '@material-ui/core';
 import {FormInput, FormSwitch} from './index';
 
 const styles = theme => ({
@@ -18,38 +18,81 @@ const styles = theme => ({
   }
 });
 
+const getFormInput = (paramName, errors, formParams, formState, setParam) => {
+  return <FormInput key={paramName}
+    error={errors[paramName] !== undefined && errors[paramName].length > 0}
+    helperText={errors[paramName] !== undefined && errors[paramName].length > 0 ? errors[paramName][0] : (formParams[paramName].helper ? formParams[paramName].helper : undefined)}
+    setParam={setParam}
+    name={paramName}
+    label={formParams[paramName].label}
+    value={formState[paramName]}
+    placeholder={formParams[paramName].placeholder}
+    autoFocus={formParams[paramName].autoFocus}
+    required={formParams[paramName].required}
+    type={formParams[paramName].type}
+    inputProps={formParams[paramName].inputProps}
+    select={formParams[paramName].select}
+  />
+}
+
+const getFormInputFile = (paramName, errors, formParams, formState, setParam, removeFile) => {
+  return <React.Fragment key={paramName}>
+      <FormInput key={paramName+'form'}
+        error={errors[paramName] !== undefined && errors[paramName].length > 0}
+        helperText={errors[paramName] !== undefined && errors[paramName].length > 0 ? errors[paramName][0] : (formParams[paramName].helper ? formParams[paramName].helper : undefined)}
+        setParam={setParam}
+        name={paramName}
+        label={formParams[paramName].label}
+        value={formState[paramName]}
+        placeholder={formParams[paramName].placeholder}
+        autoFocus={formParams[paramName].autoFocus}
+        required={formParams[paramName].required}
+        inputProps={formParams[paramName].inputProps}
+        select={formParams[paramName].select}
+        disabled={true}
+      />
+      <FormGroup key={paramName+'button'}>
+        <Button
+          onClick={() => removeFile(paramName)}
+          color='secondary'
+          variant='outlined'
+          size='small'
+        >
+          {"Remove " + paramName}
+        </Button>
+      </FormGroup>
+    </React.Fragment>
+}
+
 const Form = props => {
-  const {classes, formParams, formState, errors, submitText, setParam, onSubmit, children} = props;
+  const {classes, formParams, formState, errors, submitText, setParam, onSubmit, children, removeFile} = props;
 
   return (
     <div className={classes.root}>
       <form onSubmit={onSubmit}>
-        {Object.keys(formParams).map(paramName => 
-          formParams[paramName].type === 'checkbox' ?
+        {Object.keys(formParams).map(paramName => {
+
+          return formParams[paramName].type === 'checkbox' ?
+
           <FormSwitch key={paramName}
             error={errors[paramName] !== undefined && errors[paramName].length > 0}
-            helperText={errors[paramName] !== undefined && errors[paramName].length > 0 ? errors[paramName][0] : undefined}
+            helperText={errors[paramName] !== undefined && errors[paramName].length > 0 ? errors[paramName][0] : (formParams[paramName].helper ? formParams[paramName].helper : undefined)}
             setParam={setParam}
             name={paramName}
             label={formParams[paramName].label}
             value={formState[paramName]}
           />
+
           :
-          <FormInput key={paramName}
-            error={errors[paramName] !== undefined && errors[paramName].length > 0}
-            helperText={errors[paramName] !== undefined && errors[paramName].length > 0 ? errors[paramName][0] : undefined}
-            setParam={setParam}
-            name={paramName}
-            label={formParams[paramName].label}
-            value={formState[paramName]}
-            placeholder={formParams[paramName].placeholder}
-            autoFocus={formParams[paramName].autoFocus}
-            required={formParams[paramName].required}
-            type={formParams[paramName].type}
-            inputProps={formParams[paramName].inputProps}
-            select={formParams[paramName].select}
-          />
-        )}
+
+          (
+            formParams[paramName].type === 'file' && formState._files[paramName] !== undefined ? 
+            getFormInputFile(paramName, errors, formParams, formState, setParam, removeFile)
+            :
+            getFormInput(paramName, errors, formParams, formState, setParam)
+          )
+
+        })}
         {submitText && onSubmit &&
         <FormGroup>
           <Fab
@@ -76,7 +119,8 @@ Form.propTypes = {
   submitText: PropTypes.string,
   setParam: PropTypes.func.isRequired,
   onSubmit: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  removeFile: PropTypes.func.isRequired
 };
 
 const ComponentWithStyles = withStyles(styles)(Form);
