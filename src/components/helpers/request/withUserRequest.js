@@ -24,6 +24,18 @@ export default (Component, requestName) => {
       });
     }
 
+    const fetch = id => {
+      return withRequest.get(`/users/${id}`)
+      .then(response => {
+        store.fetch(response.data.payload.user);
+
+        return response;
+      })
+      .catch(error => {
+        throw(error);
+      });
+    }
+
     const update = payload => {
       return withRequest.put(`/users/${payload.id}`, payload)
       .then(response => {
@@ -48,7 +60,7 @@ export default (Component, requestName) => {
         });
     }
 
-    const requestMethods = {fetchAll, update, destroy};
+    const requestMethods = {fetchAll, fetch, update, destroy};
 
     return (
       <Component {...props} {...{[requestName === undefined ? 'withRequest' : requestName]:requestMethods}}/>

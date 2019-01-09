@@ -9,7 +9,7 @@ export default (Component, storeName) => {
     const {appContext} = props;
 
     /* READ-ONLY DATA */
-    const {users} = appContext;
+    const {users, auth} = appContext;
 
     /* INDEX */
     const fetchAll = elements => {
@@ -18,6 +18,12 @@ export default (Component, storeName) => {
 
       //Sync Store
       appContext.setAll('users', elementsById);
+    };
+
+    /* FETCH */
+    const fetch = element => {
+      //Sync Store
+      appContext.updateElement('users', element);
     };
 
     /* CREATE */
@@ -63,7 +69,7 @@ export default (Component, storeName) => {
       appContext.setAlert(message, variant);
     };
 
-    const storeInterface = {users, fetchAll, storeElement, update, destroy, checkIsLoaded, setAlert};
+    const storeInterface = {users, auth, fetchAll, fetch, storeElement, update, destroy, checkIsLoaded, setAlert};
 
     return (
       <Component {...props} {...{[storeName === undefined ? 'store' : storeName]: storeInterface}}/>
