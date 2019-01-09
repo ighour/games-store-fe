@@ -12,11 +12,11 @@ export default Component => {
       this.state = {get: this.getRequest, post: this.postRequest, put: this.putRequest, delete: this.deleteRequest};
     }
 
-    request = (method, path, payload) => {
+    request = (method, path, payload, headers) => {
       return new Promise((resolve, reject) => {
         this.props.appContext.setLoading(true);
 
-        method(path, payload ? payload : undefined)
+        method(path, payload ? payload : undefined, headers ? headers : undefined)
           .then(response => {
             if(process.env.NODE_ENV === 'development'){
               console.log(response);
@@ -53,10 +53,10 @@ export default Component => {
       });
     }
 
-    getRequest = path => this.request(apiGet, path)
-    postRequest = (path, payload) => this.request(apiPost, path, payload)
-    putRequest = (path, payload) => this.request(apiPut, path, payload)
-    deleteRequest = path => this.request(apiDelete, path)
+    getRequest = (path, payload, headers) => this.request(apiGet, path, undefined, headers)
+    postRequest = (path, payload, headers) => this.request(apiPost, path, payload, headers)
+    putRequest = (path, payload, headers) => this.request(apiPut, path, payload, headers)
+    deleteRequest = (path, payload, headers) => this.request(apiDelete, path, undefined, headers)
 
     render(){
       return (
