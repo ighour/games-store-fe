@@ -4,11 +4,11 @@ import {ListTabs} from '../../../shared';
 
 class TabsContainer extends React.Component {
   render(){
-    const {currentCategory, setCurrentCategory, categories, gamesByCategory, items} = this.props;
+    const {currentCategory, setCurrentCategory, categories, gamesByCategory, itemsList} = this.props;
 
-    const categoriesList = Object.keys(categories);
+    const categoriesList = Object.keys(gamesByCategory);
 
-    const elements = [{id: -1, top: 'All', value: false, bottom: Object.keys(items).length + ' games'}];
+    const elements = [{id: -1, top: 'All', value: false, bottom: itemsList.length + ' games'}];
     categoriesList.forEach(catId => {
       elements.push({
         id: catId,
@@ -33,7 +33,7 @@ TabsContainer.propTypes = {
   setCurrentCategory: PropTypes.func.isRequired,
   gamesByCategory: PropTypes.object.isRequired,
   categories: PropTypes.object.isRequired,
-  items: PropTypes.object.isRequired
+  itemsList: PropTypes.array.isRequired
 };
 
 export default TabsContainer;

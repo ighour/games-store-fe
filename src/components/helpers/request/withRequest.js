@@ -53,10 +53,10 @@ export default Component => {
       });
     }
 
-    getRequest = (path, payload, headers) => this.request(apiGet, path, undefined, headers)
+    getRequest = (path, payload, headers) => this.request(apiGet, path, payload, headers)
     postRequest = (path, payload, headers) => this.request(apiPost, path, payload, headers)
     putRequest = (path, payload, headers) => this.request(apiPut, path, payload, headers)
-    deleteRequest = (path, payload, headers) => this.request(apiDelete, path, undefined, headers)
+    deleteRequest = (path, payload, headers) => this.request(apiDelete, path, payload, headers)
 
     render(){
       return (

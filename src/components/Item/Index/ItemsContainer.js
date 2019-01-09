@@ -23,14 +23,40 @@ class ItemsContainer extends React.Component {
     this.setState({currentCategory: category});
   }
 
+  onDelete(id){
+    const item = this.props.store.items[id];
+
+    this.props.withRequest.destroy(item)
+    .then(() => {
+      this.props.store.setAlert("Game was deleted.", "primary");
+    })
+    .catch(error => {
+      let data = error.response.data;
+      
+      this.props.store.setAlert(data.message);
+    })
+    .finally(() => {
+      this.setState({deleteDialog: false});
+    });
+  }
+
   render(){
-    const {store} = this.props;
+    const {store, match} = this.props;
 
     const {currentCategory} = this.state;
 
-    const {items, itemCategories} = store;
+    const {items, itemCategories, auth} = store;
 
-    const itemsList = Object.keys(items);
+    let itemsList = Object.keys(items);
+
+    const user = match.params.user;
+    if(user !== undefined){
+      itemsList = itemsList.filter(itemId => {
+        let item = items[itemId];
+
+        return parseInt(item.user_id) === parseInt(user);
+      });
+    }
 
     const gamesByCategory = itemsList.reduce((carrier, id) => {
       let item = items[id];
@@ -55,6 +81,13 @@ class ItemsContainer extends React.Component {
 
     const currentItems = currentCategory === false ? allGames : (gamesByCategory[currentCategory] !== undefined ? gamesByCategory[currentCategory] : []);
 
+    const isOwner = (id) => {
+      if(auth.id === undefined || parseInt(auth.id) !== parseInt(id))
+        return false;
+
+      return true;
+    };
+
     return (
       <React.Fragment>
         <Tabs
@@ -62,7 +95,7 @@ class ItemsContainer extends React.Component {
           setCurrentCategory={this.setCurrentCategory.bind(this)}
           gamesByCategory={gamesByCategory}
           categories={itemCategories}
-          items={items}
+          itemsList={itemsList}
         />
         <ListGroup>
           {currentItems.map(item => 
@@ -70,6 +103,8 @@ class ItemsContainer extends React.Component {
               key={item.id}
               item={item}
               categories={itemCategories}
+              isOwner={isOwner.bind(this)}
+              onDelete={this.onDelete.bind(this)}
             />
           )}
         </ListGroup>
@@ -80,7 +115,8 @@ class ItemsContainer extends React.Component {
 
 ItemsContainer.propTypes = {
   store: PropTypes.object.isRequired,
-  withRequest: PropTypes.object.isRequired
+  withRequest: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 const ComponentWithItemStore = withItemStore(ItemsContainer);

@@ -55,10 +55,10 @@ export const del = (relativePath, payload, headers) => {
   return new Promise((resolve, reject) => {
 
     if(payload instanceof FormData){
-      payload.append('_method', 'PUT');
+      payload.append('_method', 'DELETE');
     }
     else{
-      payload = {...payload, _method: 'PUT'};
+      payload = {...payload, _method: 'DELETE'};
     }
   
     axios.post(relativePath, payload, getHeaders(headers))

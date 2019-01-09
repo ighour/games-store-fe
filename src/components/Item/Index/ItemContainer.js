@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { ListRow } from '../../shared';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {formatCurrency} from '../../../helpers';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { withRouter } from "react-router";
 
 class ItemContainer extends React.Component { 
   constructor(props){
@@ -17,8 +20,14 @@ class ItemContainer extends React.Component {
       this.setState({expanded: true});
   }
 
+  onEdit(){
+    const {item, history} = this.props;
+
+    history.push(`/games/${item.id}/edit`);
+  }
+
   render(){
-    const {item, categories} = this.props;
+    const {item, categories, isOwner} = this.props;
 
     const name = item.name;
     const type = item.type;
@@ -43,6 +52,11 @@ class ItemContainer extends React.Component {
       position: 'top'
     };
 
+    const expandedActions = isOwner(item.user_id) ? [
+      {name: 'Edit', icon: <EditIcon/>, onClick: this.onEdit.bind(this)},
+      {name: 'Delete', icon: <DeleteIcon/>, onClick: () => this.props.onDelete(item.id)}
+    ] : undefined;
+
     return (
       <ListRow
         primaryText={name}
@@ -50,6 +64,7 @@ class ItemContainer extends React.Component {
         expandButtonAction={this.changeExpanded.bind(this)}
         ExpandButtonIcon={<ExpandMoreIcon/>}
         expandedTexts={expandedTexts}
+        expandedActions={expandedActions}
         image={image}
       />
     );
@@ -58,7 +73,12 @@ class ItemContainer extends React.Component {
 
 ItemContainer.propTypes = {
   item: PropTypes.object.isRequired,
-  categories: PropTypes.object.isRequired
+  categories: PropTypes.object.isRequired,
+  isOwner: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
-export default ItemContainer;
+const ComponentWithRouter = withRouter(ItemContainer);
+
+export default ComponentWithRouter;
