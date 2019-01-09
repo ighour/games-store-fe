@@ -24,18 +24,6 @@ export default (Component, requestName) => {
       });
     }
 
-    const storeElement = payload => {
-      return withRequest.post('/users', payload)
-      .then(response => {
-        store.storeElement(response.data.payload.user);
-
-        return response;
-      })
-      .catch(error => {
-        throw(error);
-      });
-    }
-
     const update = payload => {
       return withRequest.put(`/users/${payload.id}`, payload)
       .then(response => {
@@ -60,7 +48,7 @@ export default (Component, requestName) => {
         });
     }
 
-    const requestMethods = {fetchAll, storeElement, update, destroy};
+    const requestMethods = {fetchAll, update, destroy};
 
     return (
       <Component {...props} {...{[requestName === undefined ? 'withRequest' : requestName]:requestMethods}}/>

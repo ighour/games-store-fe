@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Index } from '../../User';
+import { Index, Edit } from '../../User';
 import { withAppContext } from '../../helpers';
 
 class UserView extends React.Component {
@@ -24,6 +24,8 @@ class UserView extends React.Component {
     return (
       <Switch>
         <Route exact path='/profile' component={Index}/>
+
+        <Route exact path='/profile/edit' component={Edit}/>
         
         <Redirect push to='/profile'/>
       </Switch>

@@ -110,7 +110,16 @@ class AppContainer extends React.Component {
       axios.defaults.headers.common['Authorization'] = '';
 
       //Clear store
-      this.setState({auth: {}});
+      this.setState({
+        auth: {},
+        appBarTitle: 'Games Store',
+        usersLoaded: false,
+        users: {},
+        itemCategoriesLoaded: false,
+        itemCategories: {},
+        itemsLoaded: false,
+        items: {},
+      });
     }
   }
 

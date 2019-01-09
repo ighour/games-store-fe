@@ -7,6 +7,9 @@ export default (Component, storeName) => {
 
     const {appContext} = props;
 
+    /* READ-ONLY DATA */
+    const {auth} = appContext;
+
     /* SET AUTH */
     const setAuth = (payload, remember) => {
       appContext.setAuth(true, payload.token, remember);
@@ -21,7 +24,7 @@ export default (Component, storeName) => {
       appContext.setAlert(message, variant);
     };
 
-    const storeInterface = {setAuth, removeAuth, setAlert};
+    const storeInterface = {auth, setAuth, removeAuth, setAlert};
 
     return (
       <Component {...props} {...{[storeName === undefined ? 'store' : storeName]: storeInterface}}/>

@@ -41,7 +41,7 @@ export default (Component, requestName) => {
      * Register
      */
     const register = (params, headers) => {
-      return withRequest.post('/users', params)
+      return withRequest.post('/users', params, headers)
       .then(response => {        
         return response;
       })
@@ -83,7 +83,22 @@ export default (Component, requestName) => {
       });
     };
 
-    const requestMethods = {login, logout, register, forget, recover};
+    /**
+     * Change Profile
+     */
+    const update = (params, headers, id) => {
+      return withRequest.put(`/users/${id}/edit`, params, headers)
+      .then(response => {
+        store.removeAuth();
+
+        return response;
+      })
+      .catch(error => {
+        throw(error);
+      });
+    }
+
+    const requestMethods = {login, logout, register, forget, recover, update};
 
     return (
       <Component {...props} {...{[requestName === undefined ? 'withRequest' : requestName]:requestMethods}}/>

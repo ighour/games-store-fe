@@ -104,7 +104,8 @@ class FormContainer extends React.Component {
       for(let i = 0; i < params.length; i++){
         let param = params[i];
 
-        formData.append(param, payload[param]);
+        if(payload[param] !== undefined)
+          formData.append(param, payload[param]);
       }
 
       payload = formData;

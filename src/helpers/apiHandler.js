@@ -36,7 +36,15 @@ export const post = (relativePath, payload, headers) => {
 //HTTP Put
 export const put = (relativePath, payload, headers) => {
   return new Promise((resolve, reject) => {
-    axios.post(relativePath, {...payload, _method: 'PUT'}, getHeaders(headers))
+    
+    if(payload instanceof FormData){
+      payload.append('_method', 'PUT');
+    }
+    else{
+      payload = {...payload, _method: 'PUT'};
+    }
+
+    axios.post(relativePath, payload, getHeaders(headers))
       .then(response => { resolve(response) })
       .catch(error => { reject(error) });
   });
@@ -45,7 +53,15 @@ export const put = (relativePath, payload, headers) => {
 //HTTP Delete
 export const del = (relativePath, payload, headers) => {
   return new Promise((resolve, reject) => {
-    axios.post(relativePath, {_method: 'DELETE'}, getHeaders(headers))
+
+    if(payload instanceof FormData){
+      payload.append('_method', 'PUT');
+    }
+    else{
+      payload = {...payload, _method: 'PUT'};
+    }
+  
+    axios.post(relativePath, payload, getHeaders(headers))
       .then(response => { resolve(response) })
       .catch(error => { reject(error) });
   });
