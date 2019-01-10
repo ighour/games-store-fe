@@ -56,6 +56,38 @@ export default (Component, requestName) => {
         });
     }
 
+    const fetchItem = (id) => {
+      //Avoid sync again
+      if(store.checkIsLoaded() === true)
+        return new Promise((resolve) => resolve());
+  
+      return withRequest.get(`/items/${id}`)
+      .then(response => {
+        store.update(response.data.payload.item);
+
+        return response;
+      })
+      .catch(error => {
+        throw(error);
+      });
+    }
+
+    const fetch = (id) => {
+      return fetchCategories()
+        .then(() => {
+          return fetchItem(id)
+            .then(response => {
+              return response;
+            })
+            .catch(error => {
+              throw error;
+            });
+        })
+        .catch(error => {
+          throw(error);
+        });
+    }
+
     const storeElement = payload => {
       return withRequest.post('/items', payload)
       .then(response => {
@@ -68,8 +100,8 @@ export default (Component, requestName) => {
       });
     }
 
-    const update = payload => {
-      return withRequest.put(`/items/${payload.id}`, payload)
+    const update = (payload, headers, id) => {
+      return withRequest.put(`/items/${id}/edit`, payload, headers)
       .then(response => {
         store.update(response.data.payload.item);
 
@@ -92,7 +124,7 @@ export default (Component, requestName) => {
         });
     }
 
-    const requestMethods = {fetchAll, storeElement, update, destroy};
+    const requestMethods = {fetchAll, fetch, storeElement, update, destroy};
 
     return (
       <Component {...props} {...{[requestName === undefined ? 'withRequest' : requestName]:requestMethods}}/>
