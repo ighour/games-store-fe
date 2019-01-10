@@ -5,11 +5,12 @@ import {Card} from '../../shared';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  card: {
+  cardWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
+    margin: 'auto'
   }
 });
 
@@ -51,7 +52,7 @@ class ProfileContainer extends React.Component {
 
     return (
       user !== undefined &&
-      <div className={classes.card}>
+      <div className={classes.cardWrapper}>
         <Card
           imageSrc={imgPath}
           imageTitle='Avatar'
