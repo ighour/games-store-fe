@@ -9,7 +9,7 @@ export default (Component, storeName) => {
     const {appContext} = props;
 
     /* READ-ONLY DATA */
-    const {items, itemCategories, auth} = appContext;
+    const {items, itemCategories, auth, isAuth} = appContext;
 
     /* INDEX */
     const fetchAll = elements => {
@@ -47,7 +47,7 @@ export default (Component, storeName) => {
       appContext.setAlert(message, variant);
     };
 
-    const storeInterface = {items, itemCategories, auth, fetchAll, storeElement, update, destroy, checkIsLoaded, setAlert};
+    const storeInterface = {items, itemCategories, auth, isAuth, fetchAll, storeElement, update, destroy, checkIsLoaded, setAlert};
 
     return (
       <Component {...props} {...{[storeName === undefined ? 'store' : storeName]: storeInterface}}/>

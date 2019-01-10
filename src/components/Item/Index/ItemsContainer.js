@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withItemStore, withItemRequest} from '../../helpers';
-import {ListGroup} from '../../shared';
+import {ListGroup, FloatingMenu} from '../../shared';
 import ItemContainer from './ItemContainer';
 import Tabs from './Tabs';
+import AddIcon from '@material-ui/icons/Add';
 
 class ItemsContainer extends React.Component { 
   constructor(props){
@@ -88,6 +89,10 @@ class ItemsContainer extends React.Component {
       return true;
     };
 
+    const menu = [];
+    if(store.isAuth())
+      menu.push({action: '/games/create', icon: AddIcon});
+
     return (
       <React.Fragment>
         <Tabs
@@ -108,6 +113,11 @@ class ItemsContainer extends React.Component {
             />
           )}
         </ListGroup>
+        {menu.length > 0 && 
+        <FloatingMenu
+          menu={menu}
+        />
+        }
       </React.Fragment>
     );
   }

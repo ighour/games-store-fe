@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withItemRequest, withItemStore, withItemCategoryRequest } from '../../helpers';
-import {Form} from '../../shared';
+import {Form, FloatingMenu} from '../../shared';
 import {parseFormParams, sortByName} from '../../../helpers';
+import VideogameAssetIcon from '@material-ui/icons/VideogameAsset';
+import GamesIcon from '@material-ui/icons/Games';
 
 /* Form parameters */
 const params = {
@@ -103,13 +105,24 @@ class FormContainer extends React.Component {
       return withRequest.storeElement(payload, headers);
     };
 
+    const menu = [];
+    menu.push({action: '/games', icon: VideogameAssetIcon});
+
+    if(store.isAuth())
+      menu.push({action: '/games/' + store.auth.id, icon: GamesIcon});
+
     return (
-      <Form
-        params={parsedParams}
-        onSubmit={payload => onSubmit(payload)}
-        submitText='Add Game'
-        submitSuccessText='Game was Added.'
-      />
+      <React.Fragment>
+        <Form
+          params={parsedParams}
+          onSubmit={payload => onSubmit(payload)}
+          submitText='Add Game'
+          submitSuccessText='Game was Added.'
+        />
+        <FloatingMenu
+          menu={menu}
+        />
+      </React.Fragment>
     );
   }
 }

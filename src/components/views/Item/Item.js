@@ -23,12 +23,11 @@ class ItemView extends React.Component {
   render() {
     return (
       <Switch>
+        <Route exact path='/games' component={Index}/>
+        <Route exact path='/games/create' component={Create}/>
         <Route exact path='/games/:id/edit' component={Edit}/>
         <Route exact path='/games/:user' component={Index}/>
-        <Route exact path='/games' component={Index}/>
 
-        <Route exact path='/games/create' component={Create}/>
-        
         <Redirect push to='/games'/>
       </Switch>
     );
