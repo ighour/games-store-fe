@@ -29,6 +29,11 @@ export default Component => {
               console.log(error.response);
             }
 
+            //General error
+            if(error.response === undefined || error.response.data === undefined || error.response.data.message === undefined){
+              this.props.history.push("/error");
+            }
+
             //Handle Invalid Token
             if(error.response && error.response.data && error.response.data.message === 'INVALID_TOKEN'){
               //Remove auth
@@ -39,8 +44,7 @@ export default Component => {
 
             //Handle Invalid Token Access
             else if(error.response && error.response.data && error.response.data.message === 'INVALID_TOKEN_ACCESS'){
-              //REDIRECT TO /
-              //TODO
+              this.props.history.push("/");
             }
 
             //Pass Other Errors Forward
@@ -68,7 +72,8 @@ export default Component => {
   WithRequest.displayName = `WithRequest(${Component.displayName || Component.name || 'Component'})`;
 
   WithRequest.propTypes = {
-    appContext: PropTypes.object.isRequired
+    appContext: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   };
 
   const ComponentWithAppContext = withAppContext(WithRequest);

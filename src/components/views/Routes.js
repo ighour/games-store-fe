@@ -6,11 +6,13 @@ import AuthView from './Auth';
 import AdminUserView from './AdminUser';
 import UserView from './User';
 import ItemView from './Item';
+import Error from '../Error';
 
 const Routes = ({ appContext }) => {
   return (
     appContext.isAuth() ? 
     <Switch>
+      <Route exact path='/error' component={Error}/>
       {
         appContext.isRole('admin') &&
         <Route path='/admin/users' component={AdminUserView}/>
@@ -28,6 +30,7 @@ const Routes = ({ appContext }) => {
     </Switch>
     :
     <Switch>
+      <Route exact path='/error' component={Error}/>
       <Route path='/games' component={ItemView}/>
 
       <Route path='/login' component={AuthView}/>
