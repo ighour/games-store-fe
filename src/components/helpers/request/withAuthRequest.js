@@ -41,6 +41,16 @@ export default (Component, requestName) => {
      * Register
      */
     const register = (params, headers) => {
+      //Callback URL (USING HASHES)
+      const callbackURL = window.location.origin + "/#/confirm";
+
+      if(params instanceof FormData){
+        params.append('callback', callbackURL);
+      }
+      else{
+        params = {...params, callback: callbackURL};
+      }
+
       return withRequest.post('/users', params, headers)
       .then(response => {        
         return response;
@@ -98,7 +108,22 @@ export default (Component, requestName) => {
       });
     }
 
-    const requestMethods = {login, logout, register, forget, recover, update};
+    /**
+     * Confirm user
+     */
+    const confirm = (token) => {
+      return withRequest.post('/confirm', {token})
+      .then(response => {
+        store.setAlert("Email confirmed!", 'primary');
+
+        return response;
+      })
+      .catch(error => {
+        throw(error);
+      });
+    };
+
+    const requestMethods = {login, logout, register, forget, recover, update, confirm};
 
     return (
       <Component {...props} {...{[requestName === undefined ? 'withRequest' : requestName]:requestMethods}}/>

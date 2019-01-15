@@ -75,6 +75,7 @@ const FormContainer = props => {
     <Form
       params={parsedParams}
       onSubmit={onSubmit}
+      submitSuccessText='Confirm your email before login.'
     />
   );
 };

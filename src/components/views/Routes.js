@@ -7,6 +7,7 @@ import AdminUserView from './AdminUser';
 import UserView from './User';
 import ItemView from './Item';
 import Error from '../Error';
+import Confirm from '../Confirm';
 
 const Routes = ({ appContext }) => {
   return (
@@ -31,6 +32,7 @@ const Routes = ({ appContext }) => {
     :
     <Switch>
       <Route exact path='/error' component={Error}/>
+      <Route exact path='/confirm' component={Confirm}/>
       <Route path='/games' component={ItemView}/>
 
       <Route path='/login' component={AuthView}/>
