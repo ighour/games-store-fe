@@ -22,6 +22,7 @@ Frontend project for IPP/ESTG Class "Segurança em Aplicações Web"
 * **Flux** - Apply Flux concepts of unidirectional data flow with components, store and dispatchers, also using contexts.
 * **Web Service** - Consumes a web service to get data.
 * **Material Design** - Material design implemented with Material UI components.
+* **PWA** - Progressive Web App pattern, enabling reliable, fast and engaging use of it in Desktop, Web and Mobile environments.
 
 ## Main Components and Features
 
@@ -38,10 +39,6 @@ Frontend project for IPP/ESTG Class "Segurança em Aplicações Web"
 
 * **JSON Web Token** - Uses a JSON Web Token to communicate with server.
 * **Validation** - Validate all request parameters before doing request.
-
-## Live
-
-Live version is not available yet.
 
 ## Authors
 
