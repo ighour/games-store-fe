@@ -1,6 +1,6 @@
 # Games Store (Frontend)
 
-Frontend for IPP/ESTG Class "Segurança em Aplicações Web" **[Project](https://gitlab.com/ighour-learn/ipp/saw/trabalho)**.
+Frontend for [IPP/ESTG](https://www.estg.ipp.pt/) class "Segurança em Aplicações Web" (Web Application Security) **[Project](https://github.com/ighour/games-store)**.
 
 ## Built With
 
@@ -34,8 +34,3 @@ Frontend for IPP/ESTG Class "Segurança em Aplicações Web" **[Project](https:/
 
 * **JSON Web Token** - Uses a JSON Web Token to communicate with server.
 * **Validation** - Validate all request parameters before doing request.
-
-## Authors
-
-* **Célio Ighour** - *Owner* - [My Portfolio](https://www.ighour.com) | [Github](https://github.com/ighour) | [Gitlab](https://gitlab.com/ighour) | [LinkedIn](https://www.linkedin.com/in/c%C3%A9lio-ighour-de-castro-rodrigues-0a278a13a/) | [StackOverflow](https://stackexchange.com/users/10652400/ighour)
-* **Simona Alecs** - *Developer*
